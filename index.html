@@ -133,13 +133,28 @@
     margin:-8px 0 14px;
   }
 
+  .table-scroll{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    border-radius:10px;
+    border:1px solid var(--paper-line);
+  }
   table{
     width:100%;
+    min-width:640px;
     border-collapse:collapse;
     background:var(--card);
-    border:1px solid var(--paper-line);
-    border-radius:10px;
     overflow:hidden;
+  }
+  table.purchase-table{ min-width:820px; }
+  table.shipping-table{ min-width:600px; }
+  .scroll-hint{
+    display:none;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-align:center;
+    margin:8px 0 0;
   }
   thead th{
     font-size:11.5px;
@@ -404,8 +419,9 @@
 
   @media (max-width:720px){
     .names-row, .ship-grid, .result-cards{grid-template-columns:1fr;}
-    table{display:block; overflow-x:auto;}
     header{flex-direction:column; align-items:flex-start; gap:10px;}
+    body{padding:28px 12px 100px;}
+    .scroll-hint{display:block;}
   }
 </style>
 </head>
@@ -430,7 +446,8 @@
       <h2>採購紀錄</h2>
     </div>
     <p class="hint">每一筆團務：填收款總額、採購成本（墊付）、方式、負責人。若這筆不是三人都參與，取消勾選「參與者」即可，系統會依實際參與人數套用固定比例——3人：線上 4:3:3／線下 6:2:2；2人：線上 5:5／線下 6:4；只有負責人自己：全拿。「搶購・各自負擔」則是每人自己買自己出錢，成本個別填寫，利潤直接均分給有參與的人。負責人一定視為參與者（搶購模式沒有負責人限制）。</p>
-    <table>
+    <div class="table-scroll">
+    <table class="purchase-table">
       <thead>
         <tr>
           <th style="width:10%">項目</th>
@@ -446,6 +463,8 @@
       </thead>
       <tbody id="purchaseBody"></tbody>
     </table>
+    </div>
+    <p class="scroll-hint">← 表格內容較多，手機請左右滑動查看完整欄位 →</p>
     <button class="add-row-btn" onclick="addPurchase()">＋ 新增一筆採購</button>
   </section>
 
@@ -455,7 +474,8 @@
       <h2>國際運費與雜項</h2>
     </div>
     <p class="hint">這是好幾筆團務一起運回的共同成本。國際運費、雜項支出（包材等）各自獨立設定金額與代墊人；分攤名單會自動依「採購紀錄」裡有參與過任一筆的人來決定，不用另外勾選（代墊人一定算在內）。</p>
-    <table>
+    <div class="table-scroll">
+    <table class="shipping-table">
       <thead>
         <tr>
           <th style="width:26%">項目</th>
@@ -467,6 +487,8 @@
       </thead>
       <tbody id="shippingBody"></tbody>
     </table>
+    </div>
+    <p class="scroll-hint">← 表格內容較多，手機請左右滑動查看完整欄位 →</p>
   </section>
 
   <section>
